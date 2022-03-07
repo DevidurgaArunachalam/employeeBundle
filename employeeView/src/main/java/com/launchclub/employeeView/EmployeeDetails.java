@@ -4,6 +4,8 @@ import java.util.Map;
 
 import java.util.Scanner;
 
+import org.osgi.service.component.annotations.Reference;
+
 import com.launchclub.EmployeeServiceController.EmployeeController;
 import com.launchclub.employeeDetailsValidation.EmployeeDetailsValidation;
 import com.launchclub.employeeException.CustomException.ConenctionNotFoundException;
@@ -23,8 +25,10 @@ import java.sql.Date;
 public class EmployeeDetails {
 
 	private static final Scanner SCANNER = new Scanner(System.in);
-
-	public static void selectChoice() {
+    @Reference
+    private static EmployeeDetailsValidation employeeDetailsValidation;
+	
+    public static void selectChoice() {
 		int choice = 0;
 
 		do {
@@ -65,7 +69,7 @@ public class EmployeeDetails {
 	public static int getEmployeeId() {
 		System.out.println("Enter the EmployeeId:\n[Back To Main: $ ]");
 		final String employeeId = SCANNER.next().trim();
-		final boolean isIdCorrect = EmployeeDetailsValidation.checkEmployeeId(employeeId);
+		final boolean isIdCorrect = employeeDetailsValidation.checkEmployeeId(employeeId);
 
 		if ("$".equals(employeeId)) {
 			selectChoice();
@@ -90,7 +94,7 @@ public class EmployeeDetails {
 	public static String getEmployeeName() {
 		System.out.println("Enter the EmployeeName :\n[Back To Main: $ ]");
 		final String employeeName = SCANNER.next().trim();
-		final boolean isNameCorrect = EmployeeDetailsValidation.checkEmployeeName(employeeName);
+		final boolean isNameCorrect = employeeDetailsValidation.checkEmployeeName(employeeName);
 
 		if ("$".equals(employeeName)) {
 			selectChoice();
@@ -115,7 +119,7 @@ public class EmployeeDetails {
 	public static String getContactNumber() {
 		System.out.println("Enter the Contact Number :\n[Back To Main: $ ]");
 		final String contactNumber = SCANNER.next().trim();
-		final boolean isNumberCorrect = EmployeeDetailsValidation.checkContactNumber(contactNumber);
+		final boolean isNumberCorrect = employeeDetailsValidation.checkContactNumber(contactNumber);
 
 		if ("$".equals(contactNumber)) {
 			selectChoice();
@@ -140,7 +144,7 @@ public class EmployeeDetails {
 	public static String getEmployeeSalary() {
 		System.out.println("Enter the Salary :\n[Back To Main: $ ]");
 		final String salary = SCANNER.next().trim();
-		final boolean isSalaryCorrect = EmployeeDetailsValidation.checkSalary(salary);
+		final boolean isSalaryCorrect = employeeDetailsValidation.checkSalary(salary);
 
 		if ("$".equals(salary)) {
 			selectChoice();
@@ -166,7 +170,7 @@ public class EmployeeDetails {
 
 		final String userChoice = SCANNER.next().trim();
 
-		if (EmployeeDetailsValidation.choiceValidation(userChoice)) {
+		if (employeeDetailsValidation.choiceValidation(userChoice)) {
 			return userChoice;
 		} else {
 			System.out.println("Please Enter Valid Choice!!!...");
@@ -192,7 +196,7 @@ public class EmployeeDetails {
 		}
 
 		try {
-			isDateCorrect = EmployeeDetailsValidation.dateValidation(dateOfJoining);
+			isDateCorrect = employeeDetailsValidation.dateValidation(dateOfJoining);
 		} catch (InvalidInputException exception) {
 			System.out.println(exception);
 		}
@@ -216,7 +220,7 @@ public class EmployeeDetails {
 		final int employeeId = EmployeeDetails.getEmployeeId();
 
 		try {
-			EmployeeDetailsValidation.employeeIdCorrect(employeeId);
+			employeeDetailsValidation.employeeIdCorrect(employeeId);
 		} catch (IdAlreadyExistsException exception) {
 			System.out.println(exception);
 			addEmployee();
@@ -281,7 +285,7 @@ public class EmployeeDetails {
 		int employeeId = EmployeeDetails.getEmployeeId();
 
 		try {
-			EmployeeDetailsValidation.employeeIdCorrect(employeeId);
+			employeeDetailsValidation.employeeIdCorrect(employeeId);
 		} catch (IdNotFoundException exception) {
 			System.out.println(exception);
 			EmployeeDetails.updateEmployeeDetails();

@@ -2,12 +2,15 @@ package com.launchclub.employeeDetailsValidation;
 
 import java.time.LocalDate;
 
+import org.osgi.service.component.annotations.Component;
+
 import com.launchclub.employeeDao.EmployeeDao;
 import com.launchclub.employeeDao.EmployeeDaoImpl;
 import com.launchclub.employeeException.CustomException.InvalidInputException;
 import com.launchclub.employeeService.EmployeeServiceImplVersion2;
 
-public class EmployeeDetailsValidation {
+@Component
+public class EmployeeDetailsValidation implements employeeVaildator {
 
 	public static final EmployeeDao EMPLOYEE_DAO = new EmployeeDaoImpl();
 
@@ -19,7 +22,7 @@ public class EmployeeDetailsValidation {
 	 * 
 	 * @return employeeName
 	 */
-	public static boolean checkEmployeeName(final String employeeName) {
+	public boolean checkEmployeeName(final String employeeName) {
 		return employeeName.matches("^([A-Za-z]+\\s)*[a-zA-Z]+$|^[a-zA-z]$") ? true : false;
 	}
 
@@ -31,7 +34,7 @@ public class EmployeeDetailsValidation {
 	 * 
 	 * @return contactNumber
 	 */
-	public static boolean checkContactNumber(final String contactNumber) {
+	public  boolean checkContactNumber(final String contactNumber) {
 		return contactNumber.matches("[6-9]{1}[0-9]{9}") ? true : false;
 	}
 
@@ -43,7 +46,7 @@ public class EmployeeDetailsValidation {
 	 * 
 	 * @return salary
 	 */
-	public static boolean checkSalary(final String salary) {
+	public  boolean checkSalary(final String salary) {
 		return salary.matches("[0-9]+([,.][0-9]{2,})?") ? true : false;
 	}
 
@@ -57,7 +60,7 @@ public class EmployeeDetailsValidation {
 	 * @param dateOfBirth
 	 * @return date
 	 */
-	public static boolean dateValidation(final String dateOfJoining) {
+	public  boolean dateValidation(final String dateOfJoining) {
 
 		try {
 			final LocalDate inputDate = LocalDate.parse(dateOfJoining);
@@ -82,7 +85,7 @@ public class EmployeeDetailsValidation {
 	 * @param choice
 	 * @return choice
 	 */
-	public static boolean employeeIdCorrect(final int employeeId) {
+	public  boolean employeeIdCorrect(final int employeeId) {
 		return EmployeeServiceImplVersion2.employeeIdCorrect(employeeId);
 	}
 
@@ -95,7 +98,7 @@ public class EmployeeDetailsValidation {
 	 * @param employeeId
 	 * @return employeeId
 	 */
-	public static boolean employeeIdValidation(final String employeeId) {
+	public boolean employeeIdValidation(final String employeeId) {
 		return employeeId.matches("[0-9]{1,}") ? true : false;
 	}
 
@@ -108,7 +111,7 @@ public class EmployeeDetailsValidation {
 	 * @param choice
 	 * @return choice
 	 */
-	public static boolean choiceValidation(final String choice) {
+	public boolean choiceValidation(final String choice) {
 		return choice.matches("[1-5]") ? true : false;
 	}
 
@@ -121,7 +124,7 @@ public class EmployeeDetailsValidation {
 	 * @param choice
 	 * @return choice
 	 */
-	public static boolean checkEmployeeId(String employeeId) {
+	public boolean checkEmployeeId(String employeeId) {
 		int employee = Integer.parseInt(employeeId);
 		return (EMPLOYEE_DAO.viewEmployeeData().containsKey(employee)) ? true : false;
 	}
