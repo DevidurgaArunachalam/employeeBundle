@@ -14,25 +14,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.launchclub.employeeView;
+package com.launchclub.employeeDetailsValidation;
 
-import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 public class Activator implements BundleActivator {
-	public static Bundle bundle;
 
-	public void start(BundleContext context) {
-		bundle = context.getBundle();
-		
-		System.out.println("Starting view bundle");
-		EmployeeDetails.selectChoice();
-		
-	}
+    public void start(BundleContext context) {
+        System.out.println("Starting the bundle");
+    }
 
-	public void stop(BundleContext context) {
-		System.out.println("Stopping view bundle");
-	}
+    public void stop(BundleContext context) {
+        System.out.println("Stopping the bundle");
+    }
 
 }

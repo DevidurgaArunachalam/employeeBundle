@@ -1,9 +1,11 @@
 package com.launchclub.employeeView;
 
 import java.util.Map;
+
 import java.util.Scanner;
 
 import com.launchclub.EmployeeServiceController.EmployeeController;
+import com.launchclub.employeeDetailsValidation.EmployeeDetailsValidation;
 import com.launchclub.employeeException.CustomException.ConenctionNotFoundException;
 import com.launchclub.employeeException.CustomException.DataNotFoundException;
 import com.launchclub.employeeException.CustomException.IdAlreadyExistsException;
@@ -63,7 +65,7 @@ public class EmployeeDetails {
 	public static int getEmployeeId() {
 		System.out.println("Enter the EmployeeId:\n[Back To Main: $ ]");
 		final String employeeId = SCANNER.next().trim();
-		final boolean isIdCorrect = EmployeeController.checkEmployeeId(employeeId);
+		final boolean isIdCorrect = EmployeeDetailsValidation.checkEmployeeId(employeeId);
 
 		if ("$".equals(employeeId)) {
 			selectChoice();
@@ -88,7 +90,7 @@ public class EmployeeDetails {
 	public static String getEmployeeName() {
 		System.out.println("Enter the EmployeeName :\n[Back To Main: $ ]");
 		final String employeeName = SCANNER.next().trim();
-		final boolean isNameCorrect = EmployeeController.checkEmployeeName(employeeName);
+		final boolean isNameCorrect = EmployeeDetailsValidation.checkEmployeeName(employeeName);
 
 		if ("$".equals(employeeName)) {
 			selectChoice();
@@ -113,7 +115,7 @@ public class EmployeeDetails {
 	public static String getContactNumber() {
 		System.out.println("Enter the Contact Number :\n[Back To Main: $ ]");
 		final String contactNumber = SCANNER.next().trim();
-		final boolean isNumberCorrect = EmployeeController.checkContactNumber(contactNumber);
+		final boolean isNumberCorrect = EmployeeDetailsValidation.checkContactNumber(contactNumber);
 
 		if ("$".equals(contactNumber)) {
 			selectChoice();
@@ -138,7 +140,7 @@ public class EmployeeDetails {
 	public static String getEmployeeSalary() {
 		System.out.println("Enter the Salary :\n[Back To Main: $ ]");
 		final String salary = SCANNER.next().trim();
-		final boolean isSalaryCorrect = EmployeeController.checkSalary(salary);
+		final boolean isSalaryCorrect = EmployeeDetailsValidation.checkSalary(salary);
 
 		if ("$".equals(salary)) {
 			selectChoice();
@@ -164,7 +166,7 @@ public class EmployeeDetails {
 
 		final String userChoice = SCANNER.next().trim();
 
-		if (EmployeeController.choiceValidation(userChoice)) {
+		if (EmployeeDetailsValidation.choiceValidation(userChoice)) {
 			return userChoice;
 		} else {
 			System.out.println("Please Enter Valid Choice!!!...");
@@ -190,7 +192,7 @@ public class EmployeeDetails {
 		}
 
 		try {
-			isDateCorrect = EmployeeController.dateValidation(dateOfJoining);
+			isDateCorrect = EmployeeDetailsValidation.dateValidation(dateOfJoining);
 		} catch (InvalidInputException exception) {
 			System.out.println(exception);
 		}
@@ -214,7 +216,7 @@ public class EmployeeDetails {
 		final int employeeId = EmployeeDetails.getEmployeeId();
 
 		try {
-			EmployeeController.employeeIdCorrect(employeeId);
+			EmployeeDetailsValidation.employeeIdCorrect(employeeId);
 		} catch (IdAlreadyExistsException exception) {
 			System.out.println(exception);
 			addEmployee();
@@ -279,7 +281,7 @@ public class EmployeeDetails {
 		int employeeId = EmployeeDetails.getEmployeeId();
 
 		try {
-			EmployeeController.employeeIdCorrectUpdate(employeeId);
+			EmployeeDetailsValidation.employeeIdCorrect(employeeId);
 		} catch (IdNotFoundException exception) {
 			System.out.println(exception);
 			EmployeeDetails.updateEmployeeDetails();
